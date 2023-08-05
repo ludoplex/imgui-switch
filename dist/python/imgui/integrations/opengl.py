@@ -202,7 +202,7 @@ class ProgrammablePipelineRenderer(BaseOpenGLRenderer):
         gl.glEnable(gl.GL_SCISSOR_TEST)
         gl.glActiveTexture(gl.GL_TEXTURE0)
 
-        gl.glViewport(0, 0, int(fb_width), int(fb_height))
+        gl.glViewport(0, 0, fb_width, fb_height)
 
         ortho_projection = [
             [ 2.0/display_width, 0.0,                   0.0, 0.0],
@@ -235,11 +235,7 @@ class ProgrammablePipelineRenderer(BaseOpenGLRenderer):
                 x, y, w, z = command.clip_rect
                 gl.glScissor(int(x), int(fb_height - w), int(z - x), int(w - y))
 
-                if imgui.INDEX_SIZE == 2:
-                    gltype = gl.GL_UNSIGNED_SHORT
-                else:
-                    gltype = gl.GL_UNSIGNED_INT
-
+                gltype = gl.GL_UNSIGNED_SHORT if imgui.INDEX_SIZE == 2 else gl.GL_UNSIGNED_INT
                 gl.glDrawElements(gl.GL_TRIANGLES, command.elem_count, gltype, ctypes.c_void_p(idx_buffer_offset))
 
                 idx_buffer_offset += command.elem_count * imgui.INDEX_SIZE
@@ -361,7 +357,7 @@ class FixedPipelineRenderer(BaseOpenGLRenderer):
         gl.glEnableClientState(gl.GL_COLOR_ARRAY)
         gl.glEnable(gl.GL_TEXTURE_2D)
 
-        gl.glViewport(0, 0, int(fb_width), int(fb_height))
+        gl.glViewport(0, 0, fb_width, fb_height)
         gl.glMatrixMode(gl.GL_PROJECTION)
         gl.glPushMatrix()
         gl.glLoadIdentity()
@@ -383,11 +379,7 @@ class FixedPipelineRenderer(BaseOpenGLRenderer):
                 x, y, w, z = command.clip_rect
                 gl.glScissor(int(x), int(fb_height - w), int(z - x), int(w - y))
 
-                if imgui.INDEX_SIZE == 2:
-                    gltype = gl.GL_UNSIGNED_SHORT
-                else:
-                    gltype = gl.GL_UNSIGNED_INT
-
+                gltype = gl.GL_UNSIGNED_SHORT if imgui.INDEX_SIZE == 2 else gl.GL_UNSIGNED_INT
                 gl.glDrawElements(gl.GL_TRIANGLES, command.elem_count, gltype, ctypes.c_void_p(idx_buffer))
 
                 idx_buffer += (command.elem_count * imgui.INDEX_SIZE)
