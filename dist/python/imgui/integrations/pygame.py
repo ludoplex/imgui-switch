@@ -47,21 +47,21 @@ class PygameRenderer(FixedPipelineRenderer):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 io.mouse_down[0] = 1
-            if event.button == 2:
+            elif event.button == 2:
                 io.mouse_down[1] = 1
-            if event.button == 3:
+            elif event.button == 3:
                 io.mouse_down[2] = 1
 
         if event.type == pygame.MOUSEBUTTONUP:
             if event.button == 1:
                 io.mouse_down[0] = 0
-            if event.button == 2:
+            elif event.button == 2:
                 io.mouse_down[1] = 0
-            if event.button == 3:
+            elif event.button == 3:
                 io.mouse_down[2] = 0
-            if event.button == 4:
+            elif event.button == 4:
                 io.mouse_wheel = .5
-            if event.button == 5:
+            elif event.button == 5:
                 io.mouse_wheel = -.5
 
         if event.type == pygame.KEYDOWN:

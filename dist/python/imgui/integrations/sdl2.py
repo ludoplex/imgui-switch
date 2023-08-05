@@ -68,7 +68,7 @@ class SDL2Renderer(ProgrammablePipelineRenderer):
                 self._mouse_pressed[2] = True
             return True
 
-        if event.type == SDL_KEYUP or event.type == SDL_KEYDOWN:
+        if event.type in [SDL_KEYUP, SDL_KEYDOWN]:
             key = event.key.keysym.sym & ~SDLK_SCANCODE_MASK
 
             if key < SDL_NUM_SCANCODES:
